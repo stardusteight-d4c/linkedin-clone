@@ -1,0 +1,14 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html,
+body {
+  @apply antialiased scroll-smooth transition-all font-roboto bg-gray-100;
+}
+
+@layer components {
+  .intent {
+    @apply flex justify-between items-center p-4 cursor-pointer rounded-sm transition-all duration-200 border border-[#efefef] shadow-md text-black bg-white max-w-md mx-auto xl:mx-0;
+  }
+}
