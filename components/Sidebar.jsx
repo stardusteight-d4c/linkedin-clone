@@ -6,6 +6,14 @@ import BookmarkOutlinedIcon from '@mui/icons-material/BookmarkOutlined'
 import AddRoundedIcon from '@mui/icons-material/AddRounded'
 
 const Sidebar = () => {
+  const { data: session, status } = useSession()
+  
+  // function stringAvatar(name) {
+  //   return {
+  //     children: `${name.split(' ')[0][0]}${name.split(' ')[1][0]}`,
+  //   };
+  // } // 'Gabriel Sena' -> 'GS'
+
   return (
     <div className="max-w-lg space-y-2 min-w-max">
       {/* Top */}
@@ -15,15 +23,16 @@ const Sidebar = () => {
         </div>
         <Avatar
           onClick={signOut}
-          src="https://www.github.com/stardusteight-d4c.png"
+          src={session?.user.image}
+          // {...stringAvatar(`${session?.user.name}`)} 
           className="!h-14 !w-14 !border-2 !absolute !top-4 !cursor-pointer"
         />
         <div className="mt-5 py-4 space-x-0.5">
           <h4 className="cursor-pointer hover:underline decoration-blue-700 underline-offset-1">
-            Gabriel Sena
+            {session?.user.name}
           </h4>
           <p className="text-sm text-[#131313]/80 dark:text-white/75">
-            bielsenamtt@email.com
+            {session?.user.email}
           </p>
         </div>
 

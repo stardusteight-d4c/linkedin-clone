@@ -1,13 +1,34 @@
 import Head from 'next/head'
-import { useSession, signOut } from 'next-auth/react'
+import { useSession, signOut, getSession } from 'next-auth/react'
 import { useRouter } from 'next/router'
 import Header from '../components/Header'
 import Sidebar from '../components/Sidebar'
+import Feed from '../components/Feed';
+
+export const getServerSideProps = async (context) => {
+  // Check if the user is authenticated on the server-side
+  const session = await getSession(context)
+  if (!session) {
+    return {
+      redirect: {
+        permanent: false,
+        destination: '/home'
+      },
+    }
+  }
+
+  return {
+    props: {
+      session,
+    }
+  }
+}
 
 export default function Home() {
   const { data: session, status } = useSession()
   const router = useRouter()
 
+  // Check if the user is authenticated on the client-side
   if (status === 'loading') return <p>Loading...</p>
   if (status === 'unauthenticated') router.push('/home')
   return (
@@ -25,7 +46,7 @@ export default function Home() {
           <main className="flex justify-center px-4 gap-x-5 sm:px-12">
             <div className="flex flex-col gap-5 md:flex-row gap-x-5">
               <Sidebar />
-              {/* Feed */}
+              <Feed />
             </div>
             {/* Widgets */}
           </main>
