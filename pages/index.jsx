@@ -3,7 +3,11 @@ import { useSession, signOut, getSession } from 'next-auth/react'
 import { useRouter } from 'next/router'
 import Header from '../components/Header'
 import Sidebar from '../components/Sidebar'
-import Feed from '../components/Feed';
+import Feed from '../components/Feed'
+import { AnimatePresence } from 'framer-motion'
+import Modal from '../components/Modal'
+import { useRecoilState } from 'recoil';
+import { modalState, modalTypeState } from '../atoms/modalAtom';
 
 export const getServerSideProps = async (context) => {
   // Check if the user is authenticated on the server-side
@@ -12,7 +16,7 @@ export const getServerSideProps = async (context) => {
     return {
       redirect: {
         permanent: false,
-        destination: '/home'
+        destination: '/home',
       },
     }
   }
@@ -20,12 +24,14 @@ export const getServerSideProps = async (context) => {
   return {
     props: {
       session,
-    }
+    },
   }
 }
 
 export default function Home() {
   const { data: session, status } = useSession()
+  const [modalOpen, setModalOpen] = useRecoilState(modalState)
+  const [modalType, setModalType] = useRecoilState(modalTypeState)
   const router = useRouter()
 
   // Check if the user is authenticated on the client-side
@@ -48,7 +54,14 @@ export default function Home() {
               <Sidebar />
               <Feed />
             </div>
-            {/* Widgets */}
+            <AnimatePresence>
+              {modalOpen && (
+                <Modal
+                  handleClose={() => setModalOpen(false)}
+                  type={modalType}
+                />
+              )}
+            </AnimatePresence>
           </main>
         </div>
       )}
