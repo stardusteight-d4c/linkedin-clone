@@ -11,4 +11,12 @@ body {
   .intent {
     @apply flex justify-between items-center p-4 cursor-pointer rounded-sm transition-all duration-200 border border-[#efefef] shadow-md text-black bg-white max-w-md mx-auto xl:mx-0;
   }
+
+  .sidebarButton {
+    @apply dark:border-t border-gray-600 py-3 px-4 cursor-pointer opacity-80 hover:opacity-100 transition-opacity  duration-200;
+  }
+
+  .sidebarLink {
+    @apply text-[13px] font-medium text-blue-500 hover:underline cursor-pointer px-2.5;
+  }
 }
