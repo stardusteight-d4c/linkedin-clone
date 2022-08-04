@@ -1,13 +1,16 @@
 import Head from 'next/head'
 import { useSession, signOut, getSession } from 'next-auth/react'
 import { useRouter } from 'next/router'
+import { useRecoilState } from 'recoil'
+import { modalState, modalTypeState } from '../atoms/modalAtom'
+import { connectToDatabase } from '../util/mongodb'
+
 import Header from '../components/Header'
 import Sidebar from '../components/Sidebar'
 import Feed from '../components/Feed'
-import { AnimatePresence } from 'framer-motion'
 import Modal from '../components/Modal'
-import { useRecoilState } from 'recoil';
-import { modalState, modalTypeState } from '../atoms/modalAtom';
+
+import { AnimatePresence } from 'framer-motion'
 
 export const getServerSideProps = async (context) => {
   // Check if the user is authenticated on the server-side
@@ -21,14 +24,40 @@ export const getServerSideProps = async (context) => {
     }
   }
 
+  // Get posts on SSR
+  const { db } = await connectToDatabase()
+  const posts = await db
+    .collection('posts')
+    .find()
+    .sort({ timestamp: -1 })
+    .toArray()
+
+  // Get Google News API
+
   return {
     props: {
       session,
+      /* Error: Error serializing `.posts[0]._id` returned from `getServerSideProps` in "/".
+        Reason: `object` ("[object Object]") cannot be serialized as JSON. Please only return JSON serializable data types. 
+        Ex: _id: ObjectId("62ebbd9c40bc2d74a899a652")
+        "_id": { "$oid" : "62ebbd9c40bc2d74a899a652" }
+      */
+      posts: posts.map((post) => ({
+        _id: post._id.toString(),
+        input: post.input,
+        photoUrl: post.photoUrl,
+        username: post.username,
+        email: post.email,
+        userImg: post.userImg,
+        createdAt: post.createdAt,
+      })),
     },
   }
 }
 
-export default function Home() {
+export default function Home({ posts }) {
+  // console.log(posts)
+
   const { data: session, status } = useSession()
   const [modalOpen, setModalOpen] = useRecoilState(modalState)
   const [modalType, setModalType] = useRecoilState(modalTypeState)
@@ -52,7 +81,7 @@ export default function Home() {
           <main className="flex justify-center px-4 gap-x-5 sm:px-12">
             <div className="flex flex-col gap-5 md:flex-row gap-x-5">
               <Sidebar />
-              <Feed />
+              <Feed posts={posts} />
             </div>
             <AnimatePresence>
               {modalOpen && (

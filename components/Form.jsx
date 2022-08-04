@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
 import { useSession } from 'next-auth/react'
-import { useRecoilState } from 'recoil';
-import { modalState, modalTypeState } from '../atoms/modalAtom';
+import { useRecoilState } from 'recoil'
+import { modalState, modalTypeState } from '../atoms/modalAtom'
+import { handlePostState } from '../atoms/postAtom'
 
 const Form = () => {
   const { data: session } = useSession()
@@ -9,6 +10,7 @@ const Form = () => {
   const [photoUrl, setPhotoUrl] = useState('')
   const [modalOpen, setModalOpen] = useRecoilState(modalState)
   const [modalType, setModalType] = useRecoilState(modalTypeState)
+  const [handlePost, setHandlePost] = useRecoilState(handlePostState)
 
   // console.log(input)
 
@@ -32,6 +34,8 @@ const Form = () => {
 
     const responseData = await response.json()
     console.log(responseData)
+
+    setHandlePost(true)
     setModalOpen(false)
   }
 
@@ -49,7 +53,7 @@ const Form = () => {
         className="max-w-xs truncate bg-transparent focus:outline-none md:max-w-sm dark:placeholder-white/75"
         placeholder="Add a photo URL (optional)"
         value={photoUrl}
-        onChange={(e) => setInput(e.target.value)}
+        onChange={(e) => setPhotoUrl(e.target.value)}
       />
       <button
         type="submit"
