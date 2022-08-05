@@ -31,26 +31,26 @@ const Input = () => {
             setModalType('dropIn')
           }}
         >
-          Start a post
+          Comece um post
         </motion.button>
       </div>
       <div className="flex flex-wrap items-center justify-center gap-4 gap-y-4 md:gap-x-10">
         <button className="inputButton group">
           <PhotoSizeSelectActualIcon className="text-blue-400" />
-          <h4 className="opacity-80 group-hover:opacity-100">Photo</h4>
+          <h4 className="opacity-80 group-hover:opacity-100">Foto</h4>
         </button>
         <button className="inputButton group">
           <VideoCameraBackIcon className="text-green-400" />
-          <h4 className="opacity-80 group-hover:opacity-100">Video</h4>
+          <h4 className="opacity-80 group-hover:opacity-100">Vídeo</h4>
         </button>
         <button className="inputButton group">
           <BusinessCenterIcon className="text-blue-300" />
-          <h4 className="opacity-80 group-hover:opacity-100">Job</h4>
+          <h4 className="opacity-80 group-hover:opacity-100">Emprego</h4>
         </button>
         <button className="inputButton group">
           <ArticleIcon className="text-red-400" />
           <h4 className="opacity-80 group-hover:opacity-100 whitespace-nowrap">
-            Write Article
+            Escrever artigo
           </h4>
         </button>
       </div>

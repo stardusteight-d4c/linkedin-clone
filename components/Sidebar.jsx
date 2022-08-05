@@ -7,7 +7,7 @@ import AddRoundedIcon from '@mui/icons-material/AddRounded'
 
 const Sidebar = () => {
   const { data: session, status } = useSession()
-  
+
   // function stringAvatar(name) {
   //   return {
   //     children: `${name.split(' ')[0][0]}${name.split(' ')[1][0]}`,
@@ -15,7 +15,7 @@ const Sidebar = () => {
   // } // 'Gabriel Sena' -> 'GS'
 
   return (
-    <div className="max-w-lg space-y-2 min-w-max">
+    <div className="max-w-lg mt-3 space-y-2 md:mt-0 min-w-max">
       {/* Top */}
       <div className="bg-white dark:bg-[#1d2226] text-[#1b1818] dark:text-white/75 rounded-lg overflow-hidden relative flex flex-col items-center text-center border border-gray-300 dark:border-transparent">
         <div className="relative w-full h-14">
@@ -24,7 +24,7 @@ const Sidebar = () => {
         <Avatar
           onClick={signOut}
           src={session?.user.image}
-          // {...stringAvatar(`${session?.user.name}`)} 
+          // {...stringAvatar(`${session?.user.name}`)}
           className="!h-14 !w-14 !border-2 !absolute !top-4 !cursor-pointer"
         />
         <div className="mt-5 py-4 space-x-0.5">
@@ -39,40 +39,40 @@ const Sidebar = () => {
         <div className="hidden text-sm text-left md:inline dark:text-white/75">
           <div className="sidebarButton font-medium space-y-0.5">
             <div className="flex justify-between space-x-2">
-              <h4>Who viewed your profile</h4>
+              <h4>Quem visitou seu perfil</h4>
               <span className="text-blue-500">321</span>
             </div>
             <div className="flex justify-between space-x-2">
-              <h4>Views of your post</h4>
+              <h4>Visualizações em seu post</h4>
               <span className="text-blue-500">1,892</span>
             </div>
           </div>
           <div className="sidebarButton">
             <h4 className="text-xs leading-4">
-              Access exclusive tools & insights
+              Acesse ferramentas e insights exclusivos
             </h4>
             <h4 className="font-medium dark:text-white">
               <span className="inline-block w-3 h-3 mr-1 rounded-sm bg-gradient-to-tr from-yellow-700 to-yellow-200" />{' '}
-              Try Premium for free
+              Experimente o Premium
             </h4>
           </div>
 
           <div className="sidebarButton flex items-center space-x-1.5">
             <BookmarkOutlinedIcon className="!-ml-1" />
-            <h4 className="font-medium dark:text-white">My items</h4>
+            <h4 className="font-medium dark:text-white">Meus itens</h4>
           </div>
         </div>
       </div>
       {/* Bottom */}
       <div className="hidden md:flex bg-white dark:bg-[#1d2226] text-[#1b1818] dark:text-white/75 rounded-lg overflow-hidden flex-col space-y-2 pt-2.5 sticky top-20 border border-gray-300 dark:border-transparent">
-        <p className="sidebarLink">Groups</p>
+        <p className="sidebarLink">Grupos</p>
         <div className="flex items-center justify-between">
-          <p className="sidebarLink">Events</p>
+          <p className="sidebarLink">Eventos</p>
           <AddRoundedIcon className="!w-5" />
         </div>
-        <p className="sidebarLink">Followed Hashtags</p>
+        <p className="sidebarLink">Hashtags Seguidas</p>
         <div className="text-center sidebarButton">
-          <h4 className="text-sm font-medium dark:text-white">Discover More</h4>
+          <h4 className="text-sm font-medium dark:text-white">Descobrir mais</h4>
         </div>
       </div>
     </div>

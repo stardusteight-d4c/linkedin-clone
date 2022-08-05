@@ -13,7 +13,7 @@ import NotificationsIcon from '@mui/icons-material/Notifications'
 import HomeRoundedIcon from '@mui/icons-material/HomeRounded'
 import AppsOutlinedIcon from '@mui/icons-material/AppsOutlined'
 import { Avatar } from '@mui/material'
-import { useSession } from 'next-auth/react';
+import { useSession } from 'next-auth/react'
 
 const spring = {
   type: 'spring',
@@ -35,26 +35,20 @@ const Header = () => {
       {/* Left */}
       <div className="flex items-center w-full max-w-xs space-x-2">
         {mounted && (
-          <>
+          <div className="relative w-7 h-7 md:w-[45px] md:h-[35px]">
             {resolvedTheme === 'dark' ? (
-              <Image
-                src="/logosm-light.png"
-                width={45}
-                height={45}
-                alt="Logo Linkend"
-              />
+              <Image src="/logosm-light.png" layout="fill" alt="Logo Linkend" />
             ) : (
               <Image
                 src="/logosm-normal.png"
-                width={45}
-                height={45}
+                layout="fill"
                 alt="Logo Linkend"
               />
             )}
-          </>
+          </div>
         )}
 
-        <div className="flex items-center space-x-1 bg-zinc-200 dark:md:bg-gray-700 py-2.5 px-4 rounded w-full">
+        <div className="hidden md:flex items-center space-x-1 bg-zinc-200 dark:md:bg-gray-700 py-2.5 px-4 rounded w-full">
           <SearchRoundedIcon />
           <input
             type="text"
@@ -66,13 +60,19 @@ const Header = () => {
       {/* Right */}
 
       <div className="flex items-center space-x-6">
-        <HeaderLink Icon={HomeRoundedIcon} text="Home" feed active />
-        <HeaderLink Icon={GroupIcon} text="My Network" feed />
-        <HeaderLink Icon={BusinessCenterIcon} text="Jobs" feed hidden />
-        <HeaderLink Icon={ChatIcon} text="Messaging" feed />
-        <HeaderLink Icon={NotificationsIcon} text="Notifications" feed />
-        <HeaderLink Icon={Avatar} text="Me" feed avatar={session?.user.image} hidden />
-        <HeaderLink Icon={AppsOutlinedIcon} text="Work" feed hidden />
+        <HeaderLink Icon={HomeRoundedIcon} text="Início" feed active />
+        <HeaderLink Icon={GroupIcon} text="Network" feed />
+        <HeaderLink Icon={BusinessCenterIcon} text="Emprego" feed hidden />
+        <HeaderLink Icon={ChatIcon} text="Mensagens" feed />
+        <HeaderLink Icon={NotificationsIcon} text="Notificações" feed />
+        <HeaderLink
+          Icon={Avatar}
+          text="Eu"
+          feed
+          avatar={session?.user.image}
+          hidden
+        />
+        <HeaderLink Icon={AppsOutlinedIcon} text="Trabalhos" feed hidden />
 
         {/* Dark mode toggle */}
         {mounted && (

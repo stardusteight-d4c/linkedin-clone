@@ -44,14 +44,14 @@ const Form = () => {
       <textarea
         className="bg-transparent focus:outline-none dark:placeholder-white/75"
         rows="4"
-        placeholder="What do you want to talk about?"
+        placeholder="Sobre o que você quer falar?"
         value={input}
         onChange={(e) => setInput(e.target.value)}
       />
       <input
         type="text"
         className="max-w-xs truncate bg-transparent focus:outline-none md:max-w-sm dark:placeholder-white/75"
-        placeholder="Add a photo URL (optional)"
+        placeholder="Adicionar um URL de foto (opcional)"
         value={photoUrl}
         onChange={(e) => setPhotoUrl(e.target.value)}
       />

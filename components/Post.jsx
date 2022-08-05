@@ -115,7 +115,7 @@ const Post = ({ post, modalPost }) => {
         {modalPost ? (
           <button className="postButton">
             <CommentOutlinedIcon />
-            <h4>Comment</h4>
+            <h4>Comentar</h4>
           </button>
         ) : (
           <button
@@ -127,7 +127,7 @@ const Post = ({ post, modalPost }) => {
             ) : (
               <ThumbUpOffAltOutlinedIcon className="-scale-x-100" />
             )}
-            <h4>Like</h4>
+            <h4>Curtir</h4>
           </button>
         )}
 
@@ -137,12 +137,12 @@ const Post = ({ post, modalPost }) => {
             onClick={deletePost}
           >
             <DeleteRoundedIcon />
-            <h4>Delete post</h4>
+            <h4>Deletar post</h4>
           </button>
         ) : (
           <button className="postButton ">
             <ReplyRoundedIcon className="-scale-x-100" />
-            <h4>Share</h4>
+            <h4>Compartilhar</h4>
           </button>
         )}
       </div>
