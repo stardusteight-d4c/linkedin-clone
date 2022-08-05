@@ -28,3 +28,14 @@ body {
     @apply flex items-center justify-center space-x-2 cursor-pointer hover:bg-black/10 dark:hover:bg-black/20 w-full py-2.5 rounded-none transition ease-out;
   }
 }
+
+
+::-webkit-scrollbar {
+  width: 5px;
+  hight: 5px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #cccccc;
+  border-radius: 20px;
+}
