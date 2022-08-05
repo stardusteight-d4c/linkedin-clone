@@ -30,9 +30,11 @@ const Post = ({ post, modalPost }) => {
   const [handlePost, setHandlePost] = useRecoilState(handlePostState)
 
   const deletePost = async () => {
-    const response = await fetch(`/api/posts/${post._id}`, {
+    const response = await fetch(`api/posts/${post._id}`, {
       method: 'DELETE',
-      headers: { 'Content-Type': 'application/json' },
+      headers: {
+        'Content-Type': 'application/json',
+      },
     })
 
     setHandlePost(true)
@@ -62,7 +64,7 @@ const Post = ({ post, modalPost }) => {
         modalPost
           ? 'rounded-none border-none border-b rounded-tr-lg'
           : 'rounded-lg'
-      } space-y-2 py-2.5 border border-gray-300 dark:border-none`}
+      } space-y-2 py-2.5 border border-gray-300 dark:border-transparent`}
     >
       <div className="flex items-center px-2.5 cursor-pointer text-black/80 dark:text-white/75">
         <Avatar src={post.userImg} className="!h-10 !w-10 cursor-pointer" />

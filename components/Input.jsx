@@ -16,7 +16,7 @@ const Input = () => {
   const [modalType, setModalType] = useRecoilState(modalTypeState)
 
   return (
-    <div className="bg-white dark:bg-[#1d2226] text-[#1b1818] dark:text-white/75 rounded-lg p-3 space-y-3 border border-gray-300 dark:border-none">
+    <div className="bg-white dark:bg-[#1d2226] text-[#1b1818] dark:text-white/75 rounded-lg p-3 space-y-3 border border-gray-300 dark:border-transparent">
       <div className="flex items-center space-x-2">
         <Avatar
           src={session?.user.image}

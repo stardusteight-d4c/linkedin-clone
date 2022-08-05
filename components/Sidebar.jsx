@@ -17,7 +17,7 @@ const Sidebar = () => {
   return (
     <div className="max-w-lg space-y-2 min-w-max">
       {/* Top */}
-      <div className="bg-white dark:bg-[#1d2226] text-[#1b1818] dark:text-white/75 rounded-lg overflow-hidden relative flex flex-col items-center text-center border border-gray-300 dark:border-none">
+      <div className="bg-white dark:bg-[#1d2226] text-[#1b1818] dark:text-white/75 rounded-lg overflow-hidden relative flex flex-col items-center text-center border border-gray-300 dark:border-transparent">
         <div className="relative w-full h-14">
           <Image src="/banner.png" layout="fill" priority alt="" />
         </div>
@@ -64,7 +64,7 @@ const Sidebar = () => {
         </div>
       </div>
       {/* Bottom */}
-      <div className="hidden md:flex bg-white dark:bg-[#1d2226] text-[#1b1818] dark:text-white/75 rounded-lg overflow-hidden flex-col space-y-2 pt-2.5 sticky top-20 border border-gray-300 dark:border-none">
+      <div className="hidden md:flex bg-white dark:bg-[#1d2226] text-[#1b1818] dark:text-white/75 rounded-lg overflow-hidden flex-col space-y-2 pt-2.5 sticky top-20 border border-gray-300 dark:border-transparent">
         <p className="sidebarLink">Groups</p>
         <div className="flex items-center justify-between">
           <p className="sidebarLink">Events</p>

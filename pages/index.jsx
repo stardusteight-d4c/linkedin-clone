@@ -11,6 +11,7 @@ import Feed from '../components/Feed'
 import Modal from '../components/Modal'
 
 import { AnimatePresence } from 'framer-motion'
+import Widgets from '../components/Widgets'
 
 export const getServerSideProps = async (context) => {
   // Check if the user is authenticated on the server-side
@@ -33,10 +34,14 @@ export const getServerSideProps = async (context) => {
     .toArray()
 
   // Get Google News API
+  const results = await fetch(
+    `https://newsapi.org/v2/top-headlines?country=br&pageSize=5&apiKey=${process.env.NEWS_API_KEY}`
+  ).then((res) => res.json())
 
   return {
     props: {
       session,
+      articles: results.articles,
       /* Error: Error serializing `.posts[0]._id` returned from `getServerSideProps` in "/".
         Reason: `object` ("[object Object]") cannot be serialized as JSON. Please only return JSON serializable data types. 
         Ex: _id: ObjectId("62ebbd9c40bc2d74a899a652")
@@ -55,8 +60,9 @@ export const getServerSideProps = async (context) => {
   }
 }
 
-export default function Home({ posts }) {
+export default function Home({ posts, articles }) {
   // console.log(posts)
+  // console.log(articles)
 
   const { data: session, status } = useSession()
   const [modalOpen, setModalOpen] = useRecoilState(modalState)
@@ -83,6 +89,7 @@ export default function Home({ posts }) {
               <Sidebar />
               <Feed posts={posts} />
             </div>
+            <Widgets articles={articles} />
             <AnimatePresence>
               {modalOpen && (
                 <Modal

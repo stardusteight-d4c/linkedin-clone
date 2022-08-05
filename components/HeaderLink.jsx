@@ -1,6 +1,7 @@
 /* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable @next/next/no-img-element */
 import React from 'react'
+import { signOut } from 'next-auth/react';
 
 const HeaderLink = ({ Icon, text, feed, active, avatar, hidden }) => {
   return (
@@ -13,7 +14,7 @@ const HeaderLink = ({ Icon, text, feed, active, avatar, hidden }) => {
           : 'text-gray-500 hover:text-gray-700'
       } ${active && '!text-black dark:!text-white'} `}
     >
-      {avatar ? <img className="!h-7 !w-7 lg:!-mb-1 rounded-full" src={avatar} referrerPolicy="no-referrer" /> : <Icon className="!h-7 !w-7 lg:!-mb-1 rounded-full" />}
+      {avatar ? <img onClick={signOut} className="!h-7 !w-7 lg:!-mb-1 rounded-full" src={avatar} referrerPolicy="no-referrer" /> : <Icon className="!h-7 !w-7 lg:!-mb-1 rounded-full" />}
       <h4
         className={`text-sm ${
           feed && 'hidden lg:flex justify-center w-full mx-auto'
