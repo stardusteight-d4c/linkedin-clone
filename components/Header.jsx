@@ -87,7 +87,7 @@ const Header = () => {
             }
           >
             <span className="absolute left-0.5">
-              <DarkMode className="w-4 h-4 text-white" />
+              <DarkMode className="w-3 h-3 text-white" />
             </span>
             <motion.div
               className="z-40 w-5 h-5 bg-white rounded-full"
@@ -95,7 +95,7 @@ const Header = () => {
               transition={spring}
             />
             <span className="absolute right-0.5">
-              <LightMode className="w-4 h-4 text-white" />
+              <LightMode className="w-3 h-3 text-white" />
             </span>
           </div>
         )}
