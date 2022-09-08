@@ -1,7 +1,7 @@
 import React from 'react'
 import Head from 'next/head'
 import Image from 'next/image'
-import { getProviders, signIn, useSession } from 'next-auth/react'
+import { getProviders, signIn } from 'next-auth/react'
 import HeaderLink from '../components/HeaderLink'
 
 import ExploreIcon from '@mui/icons-material/Explore'
@@ -21,9 +21,6 @@ export const getServerSideProps = async (context) => {
 }
 
 const Home = ({ providers }) => {
-  // console.log(providers)
-  const session = useSession()
-  console.log(session)
   return (
     <>
       <Head>

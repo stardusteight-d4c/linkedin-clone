@@ -90,7 +90,7 @@ const Modal = ({ handleClose, type }) => {
       {type === 'gifYouUp' && (
         <motion.div
           onClick={(e) => e.stopPropagation()}
-          className="flex rounded-lg  w-full max-w-6xl bg-[#1D2226] dark:bg-gray-800 -mt-[7vh] mx-"
+          className="flex rounded-lg  w-full max-w-6xl bg-gray-300 dark:bg-[#0d1117] -mt-[7vh] mx-"
           variants={gifYouUp}
           initial="hidden"
           animate="visible"

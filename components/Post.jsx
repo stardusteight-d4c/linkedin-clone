@@ -101,7 +101,7 @@ const Post = ({ post, modalPost }) => {
       {post.photoUrl && !modalPost && (
         <img
           src={post.photoUrl}
-          alt=""
+          alt="post/photo"
           className="w-full cursor-pointer"
           onClick={() => {
             setModalOpen(true)

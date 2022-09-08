@@ -12,6 +12,8 @@ import ChatIcon from '@mui/icons-material/Chat'
 import NotificationsIcon from '@mui/icons-material/Notifications'
 import HomeRoundedIcon from '@mui/icons-material/HomeRounded'
 import AppsOutlinedIcon from '@mui/icons-material/AppsOutlined'
+import { DarkMode } from '@mui/icons-material'
+import { LightMode } from '@mui/icons-material'
 import { Avatar } from '@mui/material'
 import { useSession } from 'next-auth/react'
 
@@ -48,7 +50,7 @@ const Header = () => {
           </div>
         )}
 
-        <div className="hidden md:flex items-center space-x-1 bg-zinc-200 dark:md:bg-gray-700 py-2.5 px-4 rounded w-full">
+        <div className="hidden md:flex mt-[1px] items-center space-x-1 bg-zinc-200 dark:md:bg-gray-700 py-1.5 px-4 rounded w-full">
           <SearchRoundedIcon />
           <input
             type="text"
@@ -84,13 +86,17 @@ const Header = () => {
               setTheme(resolvedTheme === 'dark' ? 'light' : 'dark')
             }
           >
-            <span className="absolute left-0.5">🌜</span>
+            <span className="absolute left-0.5">
+              <DarkMode className="w-4 h-4 text-white" />
+            </span>
             <motion.div
               className="z-40 w-5 h-5 bg-white rounded-full"
               layout
               transition={spring}
             />
-            <span className="absolute right-0.5">🌞</span>
+            <span className="absolute right-0.5">
+              <LightMode className="w-4 h-4 text-white" />
+            </span>
           </div>
         )}
       </div>
