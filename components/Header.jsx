@@ -12,10 +12,11 @@ import ChatIcon from '@mui/icons-material/Chat'
 import NotificationsIcon from '@mui/icons-material/Notifications'
 import HomeRoundedIcon from '@mui/icons-material/HomeRounded'
 import AppsOutlinedIcon from '@mui/icons-material/AppsOutlined'
-import { DarkMode } from '@mui/icons-material'
-import { LightMode } from '@mui/icons-material'
 import { Avatar } from '@mui/material'
 import { useSession } from 'next-auth/react'
+
+import { MdDarkMode } from 'react-icons/md'
+import { BsLightningChargeFill } from 'react-icons/bs'
 
 const spring = {
   type: 'spring',
@@ -87,7 +88,7 @@ const Header = () => {
             }
           >
             <span className="absolute left-0.5">
-              <DarkMode className="w-1 h-1 text-white" />
+              <MdDarkMode className="w-4 h-4 text-white" />
             </span>
             <motion.div
               className="z-40 w-5 h-5 bg-white rounded-full"
@@ -95,7 +96,7 @@ const Header = () => {
               transition={spring}
             />
             <span className="absolute right-0.5">
-              <LightMode className="w-1 h-1 text-white" />
+              <BsLightningChargeFill className="w-4 h-4 text-white" />
             </span>
           </div>
         )}
