@@ -1,5 +1,5 @@
 import Head from 'next/head'
-import { useSession, signOut, getSession } from 'next-auth/react'
+import { useSession } from 'next-auth/react'
 import { useRouter } from 'next/router'
 import { useRecoilState } from 'recoil'
 import { modalState, modalTypeState } from '../atoms/modalAtom'
@@ -20,12 +20,17 @@ TimeAgo.addDefaultLocale(pt)
 // Tirar getSession e utilizar um useSession pelo client-side, ou remover a verificação do server-side
 
 export const getServerSideProps = async (context) => {
-  // // Check if the user is authenticated on the server-side
+  // Check if the user is authenticated on the server-side
   // const session = await getSession(context)
-
-  // Checar pelo servidor acabava dando erro 504: GATEWAY_TIMEOUT, por causa do tempo de requisição: 
-  // This Serverless Function has timed out. 
-
+  // if (!session) {
+  //   return {
+  //     redirect: {
+  //       permanent: false,
+  //       destination: '/home',
+  //     },
+  //   }
+  // }
+  console.log('server-side loading...')
   // Get posts on SSR
   const { db } = await connectToDatabase()
   const posts = await db
@@ -39,6 +44,9 @@ export const getServerSideProps = async (context) => {
     `https://newsapi.org/v2/top-headlines?country=br&pageSize=5&apiKey=${process.env.NEWS_API_KEY}`
   ).then((res) => res.json())
 
+  
+  console.log('posts status:', posts)
+  console.log('articles status:', results)
   return {
     props: {
       // session,
