@@ -10,17 +10,7 @@ import LaptopChromebook from '@mui/icons-material/LaptopChromebook'
 import BusinessCenterIcon from '@mui/icons-material/BusinessCenter'
 import ArrowForwardIosRoundedIcon from '@mui/icons-material/ArrowForwardIosRounded'
 
-export const getServerSideProps = async (context) => {
-  const providers = await getProviders()
-
-  return {
-    props: {
-      providers,
-    },
-  }
-}
-
-const Home = ({ providers }) => {
+const Home = () => {
   return (
     <>
       <Head>
@@ -45,18 +35,16 @@ const Home = ({ providers }) => {
               <HeaderLink Icon={LaptopChromebook} text="Estudos" />
               <HeaderLink Icon={BusinessCenterIcon} text="Vagas" />
             </div>
-            {Object.values(providers).map((provider) => (
-              <div key={provider.name}>
-                <div className="pl-4">
-                  <button
-                    className="text-blue-700 font-semibold rounded-full border border-blue-700 px-5 py-1.5 transition-all hover:ring-2 hover:border-transparent ring-blue-700"
-                    onClick={() => signIn(provider.id, { callbackUrl: '/' })}
-                  >
-                    Entrar
-                  </button>
-                </div>
+            <div>
+              <div className="pl-4">
+                <button
+                  className="text-blue-700 font-semibold rounded-full border border-blue-700 px-5 py-1.5 transition-all hover:ring-2 hover:border-transparent ring-blue-700"
+                  onClick={() => signIn('google', { callbackUrl: '/' })}
+                >
+                  Entrar
+                </button>
               </div>
-            ))}
+            </div>
           </div>
         </header>
         <main className="flex flex-col items-center mt-8 xl:flex-row">

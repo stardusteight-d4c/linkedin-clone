@@ -17,17 +17,14 @@ import TimeAgo from 'javascript-time-ago'
 import pt from 'javascript-time-ago/locale/pt.json'
 TimeAgo.addDefaultLocale(pt)
 
+// Tirar getSession e utilizar um useSession pelo client-side, ou remover a verificação do server-side
+
 export const getServerSideProps = async (context) => {
-  // Check if the user is authenticated on the server-side
-  const session = await getSession(context)
-  if (!session) {
-    return {
-      redirect: {
-        permanent: false,
-        destination: '/home',
-      },
-    }
-  }
+  // // Check if the user is authenticated on the server-side
+  // const session = await getSession(context)
+
+  // Checar pelo servidor acabava dando erro 504: GATEWAY_TIMEOUT, por causa do tempo de requisição: 
+  // This Serverless Function has timed out. 
 
   // Get posts on SSR
   const { db } = await connectToDatabase()
@@ -44,7 +41,7 @@ export const getServerSideProps = async (context) => {
 
   return {
     props: {
-      session,
+      // session,
       articles: results.articles,
       /* Error: Error serializing `.posts[0]._id` returned from `getServerSideProps` in "/".
         Reason: `object` ("[object Object]") cannot be serialized as JSON. Please only return JSON serializable data types. 
