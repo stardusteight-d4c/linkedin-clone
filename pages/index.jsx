@@ -30,7 +30,7 @@ export const getServerSideProps = async (context) => {
   //     },
   //   }
   // }
-  console.log('server-side loading...')
+  // console.log('server-side loading...')
   // Get posts on SSR
   const { db } = await connectToDatabase()
   const posts = await db
@@ -45,8 +45,8 @@ export const getServerSideProps = async (context) => {
   ).then((res) => res.json())
 
   
-  console.log('posts status:', posts)
-  console.log('articles status:', results)
+  // console.log('posts status:', posts)
+  // console.log('articles status:', results)
   return {
     props: {
       // session,
