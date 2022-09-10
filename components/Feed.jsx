@@ -2,9 +2,12 @@
 import Input from './Input'
 import { useEffect, useState } from 'react'
 import Post from './Post'
+import { useRecoilState } from 'recoil'
+import { handlePostState } from '../atoms/postAtom'
 
 const Feed = () => {
   const [posts, setPosts] = useState([])
+  const [handlePost, setHandlePost] = useRecoilState(handlePostState)
 
   useEffect(() => {
     const fetchPosts = async () => {
@@ -16,10 +19,11 @@ const Feed = () => {
       })
       const responseData = await response.json()
       setPosts(responseData)
+      setHandlePost(false)
     }
 
     fetchPosts()
-  }, [])
+  }, [handlePost])
   
   console.log(posts);
   return (

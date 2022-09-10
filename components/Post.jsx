@@ -25,7 +25,7 @@ const Post = ({ post, modalPost }) => {
 
   const [liked, setLiked] = useState(false)
   const [handlePost, setHandlePost] = useRecoilState(handlePostState)
-
+  
   const deletePost = async () => {
     const response = await fetch(`api/posts/${post._id}`, {
       method: 'DELETE',

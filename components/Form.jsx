@@ -2,12 +2,15 @@ import React, { useState } from 'react'
 import { useSession } from 'next-auth/react'
 import { useRecoilState } from 'recoil'
 import { modalState } from '../atoms/modalAtom'
+import { handlePostState } from '../atoms/postAtom'
 
 const Form = () => {
   const { data: session } = useSession()
   const [input, setInput] = useState('')
   const [photoUrl, setPhotoUrl] = useState('')
   const [modalOpen, setModalOpen] = useRecoilState(modalState)
+  const [handlePost, setHandlePost] = useRecoilState(handlePostState)
+
 
 
   // console.log(input)
@@ -30,6 +33,7 @@ const Form = () => {
       },
     })
 
+    setHandlePost(true)
     setModalOpen(false)
   }
 
