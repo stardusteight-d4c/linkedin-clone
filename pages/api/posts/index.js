@@ -1,9 +1,10 @@
 import { Timestamp } from 'mongodb'
 import { connectToDatabase } from '../../../util/mongodb'
 
+const { db } = await connectToDatabase()
+
 export default async function handler(req, res) {
   const { method, body } = req
-  const { db } = await connectToDatabase()
 
   if (method === 'GET') {
     try {

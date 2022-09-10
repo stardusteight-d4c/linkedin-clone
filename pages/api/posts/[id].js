@@ -1,13 +1,12 @@
-import { connectToDatabase } from '../../../util/mongodb'
 import { ObjectId } from 'mongodb'
+
+const { db } = await connectToDatabase()
 
 export default async function handler(req, res) {
   const {
     method,
     query: { id },
   } = req
-
-  const { db } = await connectToDatabase()
 
   if (method === 'DELETE') {
     try {
