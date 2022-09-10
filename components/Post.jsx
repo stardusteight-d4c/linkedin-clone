@@ -14,10 +14,7 @@ import DeleteRoundedIcon from '@mui/icons-material/DeleteRounded'
 import ReplyRoundedIcon from '@mui/icons-material/ReplyRounded'
 import CommentOutlinedIcon from '@mui/icons-material/CommentOutlined'
 
-import Moment from 'react-moment'
-import moment from 'moment'
-import 'moment/locale/pt-br'
-moment.locale('pr-br')
+import ReactTimeAgo from 'react-time-ago'
 
 const Post = ({ post, modalPost }) => {
   const { data: session } = useSession()
@@ -73,9 +70,11 @@ const Post = ({ post, modalPost }) => {
             {post.username}
           </h6>
           <p className="text-sm dark:text-white/75 opacity-80">{post.email}</p>
-          <Moment fromNow className="text-xs dark:text-white/75 opacity-80">
-            {post.createdAt}
-          </Moment>
+          <ReactTimeAgo
+            date={post.createdAt}
+            locale="pt"
+            className="text-xs dark:text-white/75 opacity-80"
+          />
         </div>
         {modalPost ? (
           <IconButton onClick={() => setModalOpen(false)}>

@@ -5,10 +5,7 @@ import Image from 'next/image'
 import InfoRoundedIcon from '@mui/icons-material/InfoRounded'
 import FiberManualRecordRoundedIcon from '@mui/icons-material/FiberManualRecordRounded'
 
-import Moment from 'react-moment'
-import moment from 'moment'
-import 'moment/locale/pt-br'
-moment.locale('pr-br')
+import ReactTimeAgo from 'react-time-ago'
 
 const Widgets = ({ articles }) => {
   return (
@@ -29,12 +26,11 @@ const Widgets = ({ articles }) => {
                   <h5 className="max-w-xs pr-10 text-sm font-mediu line-clamp-2">
                     {article.title}
                   </h5>
-                  <Moment
-                    fromNow
+                  <ReactTimeAgo
+                    date={article.publishedAt}
+                    locale="pt"
                     className="text-xs mt-0.5 dark:text-white/75 opacity-80"
-                  >
-                    {article.publishedAt}
-                  </Moment>
+                  />
                 </div>
               </div>
             </a>

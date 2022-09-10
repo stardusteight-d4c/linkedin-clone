@@ -13,6 +13,10 @@ import Modal from '../components/Modal'
 import { AnimatePresence } from 'framer-motion'
 import Widgets from '../components/Widgets'
 
+import TimeAgo from 'javascript-time-ago'
+import pt from 'javascript-time-ago/locale/pt.json'
+TimeAgo.addDefaultLocale(pt)
+
 export const getServerSideProps = async (context) => {
   // Check if the user is authenticated on the server-side
   const session = await getSession(context)
