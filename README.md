@@ -1,5 +1,5 @@
 # LinkedIn | Next.js & MongoDB
 
-![cover](cover.png)
+![banner](banner.png)
 
-> A super dynamic interface based on LinkedIn in which the user can authenticate with the Google provider, make posts and delete them. A functional widget was created in which it will always show the main updated news with redirect links to the appropriate websites, using the NEWS API. Combining Tailwindcss, Framer Motion and Headless UI, it was possible to create smooth animations and a sophisticated and minimalist interface, as well as functional modals. MongoDB was used as a database in which the endpoints (within the Next project) in /api/posts/ take care of making the necessary requests to the database.
+> A dynamic LinkedIn feed interface, where users can authenticate and make posts, they can also delete their own posts. Modals and a Toggle Theme with smooth animations were created with Framer Motion. With the next-themes library and TailwindCSS we can manage the application theme with the `dark` variant and with the `useTheme` hook switch between themes. Using the News API, it was possible to implement real-time news of the main news in Brazil.
