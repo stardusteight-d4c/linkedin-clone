@@ -6,8 +6,9 @@
 
 :arrow_right: Theme Managing | next-themes and TailwindCSS <br />
 :arrow_right: Animations with Framer Motion <br />
+:arrow_right: Initialize MongoDB in your Next.js project <br />
 :arrow_right: MongoDB & API Routes <br />
-:arrow_right: Recoil & useEffect - Real-time Rendering <br />
+:arrow_right: useEffect & Recoil | Fetch data and render in real-time with useEffect and useRecoilState hooks<br />
 
 <br />
 
@@ -344,4 +345,294 @@ For example, this component is animated by switching `justify-start` and `justif
 )}
 ```
 *<i>framer.com/docs/transition</i>
+
+<br />
+
+## Initialize MongoDB in your Next.js project
+
+Created by developers, for developers
+
+With a document data model that maps how developers think and code, and a powerful, unified query API, MongoDB enables faster, more flexible application development.
+
+### Add MongoDB as a Dependency - Install the Node.js driver:
+
+ - `npm install mongodb@4.9`
+ 
+This command performs the following actions:
+
+- Downloads the mongodb package and the dependencies it requires
+- Saves the package in the node_modules directory
+- Records the dependency information in the package.json file
+
+At this point, you are ready to use the Node.js driver with your application.
+
+### Create a MongoDB Cluster
+
+<li><strong>Create a Free Tier Cluster in Atlas:</strong></li>
+
+Create a free tier `MongoDB cluster` on `MongoDB Atlas` to store and manage your data. MongoDB Atlas hosts and manages your MongoDB database in the cloud.
+
+<li><strong>Connect to your Cluster:</strong></li>
+
+You can connect to your MongoDB cluster by providing a `connection string` which instructs the driver on where and how to connect. The connection string includes information on the hostname or IP address and port of your cluster, the authentication mechanism, user credentials when applicable, and other connection options.
+
+To retrieve your connection string for the cluster you created in the previous step, log into your Atlas account and navigate to the `Database` section and click the `Connect` button for the cluster that you want to connect.
+
+Proceed to the Connect Your Application section and select the Node.js driver. Select the Connection String Only tab and click the Copy button to copy the connection string to your clipboard.
+
+Save your `connection string` to a safe location.
+
+```dotenv
+MONGODB_URI=mongodb+srv://<username>:<password>@cluster0.7stmv.mongodb.net/<dbname>?retryWrites=true&w=majority
+
+MONGODB_DB=database-name
+```
+
+### Connect to Your Next.js Application
+
+<li><strong>Create your Node.js Application:</strong></li>
+
+Create a file to contain your application called `util/mongodb.js` in your project directory. Add the following code, assigning the uri variable the value of your `connection string`.
+
+```js
+// util/mongodb.js
+
+import { MongoClient } from 'mongodb'
+
+let uri = process.env.MONGODB_URI
+let dbName = process.env.MONGODB_DB
+
+let cachedClient = null
+let cachedDb = null
+
+if (!uri) {
+  throw new Error(
+    'Please define the MONGODB_URI environment variable inside .env.local'
+  )
+}
+
+if (!dbName) {
+  throw new Error(
+    'Please define the MONGODB_DB environment variable inside .env.local'
+  )
+}
+
+export async function connectToDatabase() {
+  if (cachedClient && cachedDb) {
+    return { client: cachedClient, db: cachedDb }
+  }
+
+  const client = await MongoClient.connect(uri, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
+
+  const db = await client.db(dbName)
+
+  cachedClient = client
+  cachedDb = db
+
+  return { client, db }
+}
+```
+*<i>mongodb.com/docs/drivers/node/current/quick-start/#connect-to-your-application</i>
+
+<br />
+
+## MongoDB & API Routes
+
+API routes provide a solution to build your `API` with Next.js.
+
+Any file inside the folder `pages/api` is mapped to `/api/` and will be treated as an API endpoint instead of a page. They are server-side only bundles and won't increase your client-side bundle size.
+
+For an API route to work, you need to export a function as default (also known as `request handler`), which then receives the following parameters:
+
+<li><strong>req</strong>: An instance of http.IncomingMessage, plus some pre-built middlewares</li>
+<li><strong>res</strong>: An instance of http.ServerResponse, plus some helper functions</li>
+
+To handle different `HTTP methods` in an API route, you can use `req.method` in your request handler, like so:
+
+
+```js
+export default function handler(req, res) {
+  if (req.method === 'POST') {
+    // Process a POST request
+  } else {
+    // Handle any other HTTP method
+  }
+}
+```
+*<i>nextjs.org/docs/api-routes/introduction</i>
+
+### MongoDB - CRUD Operations
+
+<li><strong>Find Data</li></strong>
+
+In MongoDB we use the `find` and `findOne` methods to find data in a `collection`. 
+
+<li><strong>Sort the Result</li></strong>
+
+Use the `sort()` method to sort the result in ascending or descending order. The sort() method takes one parameter, an object defining the sorting order.
+
+<li><strong>Insert Into Collection</li></strong>
+
+To insert a record, or document as it is called in MongoDB, into a collection, we use the `insertOne()` method. The first parameter of the insertOne() method is an object containing the name(s) and value(s) of each field in the document you want to insert.
+
+
+<li><strong>Getting Array of Objects</li></strong>
+
+`toArray()` method in the Mongo database returns an array that has all the `documents` of a Mongo `collection` from the cursor object.
+
+<li><strong>Delete Document</li></strong>
+
+To delete a record, or document as it is called in MongoDB, we use the `deleteOne()` method. The first parameter of the deleteOne() method is a query object defining which document to delete.
+
+*<i>w3schools.com/nodejs/nodejs_mongodb_find.asp</i>
+
+```jsx
+// pages/api/index.js
+
+import { Timestamp } from 'mongodb'
+import { connectToDatabase } from '../../../util/mongodb'
+
+const { db } = await connectToDatabase()
+
+export default async function handler(req, res) {
+  const { method, body } = req
+
+  if (method === 'GET') {
+    try {
+      const posts = await db
+        .collection('posts')
+        .find()
+        .sort({ timestamp: -1 })
+        .toArray()
+      res.status(200).json(posts)
+    } catch (error) {
+      res.status(500).json(error)
+    }
+  }
+
+  if (method === 'POST') {
+    try {
+      const post = await db
+        .collection('posts')
+        .insertOne({ ...body, timestamp: new Timestamp() })
+      res.status(201).json(post)
+    } catch (error) {
+      res.status(500).json(error)
+    }
+  }
+```
+
+## useEffect & Recoil | Fetch data and render in real-time with useEffect and useRecoilState hooks
+
+Recoil is a state management library for React. Simple to implement and manage your states globally. 
+
+The Recoil package lives in npm. To install the latest stable version, run the following command:
+
+- `npm install recoil`
+
+The atoms within the `atoms` directory are the core of global state management:
+
+```js
+// atoms/postAtom.js
+
+import { atom } from 'recoil'
+
+// const [handlePostState, setHandlePostState] = useState(false) 
+export const handlePostState = atom({
+  key: 'handlePostState', 
+  default: false,
+})
+```
+
+We give our atom a `unique key` and `set the default` value to `false`. We use `useRecoilState()` to `read` and to `get` a setter function that we use to update the state. But first, for the application to have access to atoms, we have to wrap its provider in `pages/_app.jsx`:
+
+```jsx
+// pages/_app.jsx
+
+import { RecoilRoot } from 'recoil'
+import '../styles/global.css'
+
+export default function MyApp({
+  Component,
+  pageProps: { session, ...pageProps },
+}) {
+  return (
+		<RecoilRoot>
+	    <Component {...pageProps} />
+		</RecoilRoot>
+  )
+}
+
+```
+
+Now we can use this global state of atom as a `dependency` of a useEffect that does the fetch for the posts stored in the database, and every time its dependency is updated, the `useEffect` is executed again. Finishing by setting the value of `handlePost` to its default value `setHandlePost(false)`:
+
+```jsx
+// components/feed.jsx
+
+import { useEffect, useState } from 'react'
+import { useRecoilState } from 'recoil'
+import { handlePostState } from '../atoms/postAtom'
+
+const Feed = () => {
+  const [posts, setPosts] = useState([])
+  const [handlePost, setHandlePost] = useRecoilState(handlePostState)
+
+  useEffect(() => {
+    const fetchPosts = async () => {
+      const response = await fetch('/api/posts', {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      })
+      const responseData = await response.json()
+      setPosts(responseData)
+      setHandlePost(false)
+    }
+
+    fetchPosts()
+  }, [handlePost])
+  
+  // ...
+}
+```
+
+And when a new post is inserted, change the state of `handlePost` to `true`, so the Feed will be updated automatically without having to reload the page:
+
+```jsx
+// components/Form.jsx
+
+const Form = () => {
+	const [modalOpen, setModalOpen] = useRecoilState(modalState)
+	const [handlePost, setHandlePost] = useRecoilState(handlePostState)
+
+const uploadPost = async (e) => {
+    e.preventDefault()
+
+    const response = await fetch('/api/posts', {
+      method: 'POST',
+      body: JSON.stringify({
+        input: input,
+        photoUrl: photoUrl,
+        username: session.user.name,
+        email: session.user.email,
+        userImg: session.user.image,
+        createdAt: new Date().toString(),
+      }),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+
+    setHandlePost(true)
+    setModalOpen(false)
+  }
+  
+  // ...
+}
+```
 
