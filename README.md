@@ -524,6 +524,7 @@ export default async function handler(req, res) {
     }
   }
 ```
+<br />
 
 ## useEffect & Recoil | Fetch data and render in real-time with useEffect and useRecoilState hooks
 
