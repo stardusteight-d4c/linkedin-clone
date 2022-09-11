@@ -382,9 +382,8 @@ Proceed to the Connect Your Application section and select the Node.js driver. S
 
 Save your `connection string` to a safe location.
 
-```dotenv
+```
 MONGODB_URI=mongodb+srv://<username>:<password>@cluster0.7stmv.mongodb.net/<dbname>?retryWrites=true&w=majority
-
 MONGODB_DB=database-name
 ```
 
